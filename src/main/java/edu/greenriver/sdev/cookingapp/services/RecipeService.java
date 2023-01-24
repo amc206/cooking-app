@@ -54,9 +54,12 @@ public class RecipeService
     }
 
     //POST requests (create)
-    public void addRecipe(Recipe newRecipe)
+    public Recipe addRecipe(Recipe newRecipe)
     {
+        //make changes to the recipe later..
+
         recipes.add(newRecipe);
+        return newRecipe;
     }
 
     //PUT requests (update)
@@ -78,15 +81,23 @@ public class RecipeService
     }
 
     //DELETE requests (delete)
-    public void deleteRecipe(Recipe deleteRecipe)
+    public void deleteRecipe(String recipeName)
     {
         //filter out just the matching recipe name
-        recipes = recipes.stream()
-                .filter(rec -> !rec.getName().equalsIgnoreCase(deleteRecipe.getName()))
-                .toList();
+        recipes = new ArrayList<>(recipes.stream()
+                .filter(rec -> !rec.getName().equalsIgnoreCase(recipeName))
+                .toList());
 
         //another way to do it
         //Recipe found = findRecipeByName(deleteRecipe.getName());
         //recipes.remove(found);
     }
+
+    public List<Recipe> filterByVegan(boolean vegan)
+    {
+        return recipes.stream()
+                .filter(recipe -> recipe.isVegan() == vegan)
+                .toList();
+    }
+
 }
