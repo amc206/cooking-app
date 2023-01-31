@@ -63,7 +63,7 @@ public class RecipeService
     }
 
     //PUT requests (update)
-    public void updateRecipe(Recipe updatedRecipe)
+    public Recipe updateRecipe(Recipe updatedRecipe)
     {
         /*Recipe found = recipes.stream()
                 .filter(rec -> rec.getName().equalsIgnoreCase(updatedRecipe.getName()))
@@ -78,6 +78,7 @@ public class RecipeService
             found.setCookTime(updatedRecipe.getCookTime());
             found.setServings(updatedRecipe.getServings());
         }
+        return found;
     }
 
     //DELETE requests (delete)
@@ -98,6 +99,13 @@ public class RecipeService
         return recipes.stream()
                 .filter(recipe -> recipe.isVegan() == vegan)
                 .toList();
+    }
+
+    public boolean isValidRecipe(Recipe recipe)
+    {
+        //for recipe to be valid:
+        // if the name is not null and  have a non-empty name
+        return recipe.getName() != null && !recipe.getName().isEmpty();
     }
 
 }
